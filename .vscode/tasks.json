@@ -9,10 +9,11 @@
                 "-std=c++17",
                 "-g",
                 "${workspaceFolder}/main.cpp",
+                "${workspaceFolder}/calculator.cpp", // Now linking with calculator.cpp
                 "-o",
                 "${workspaceFolder}/output",
                 "-I",
-                "/usr/include",
+                "${workspaceFolder}",
                 "-L",
                 "/lib/x86_64-linux-gnu",
                 "-lpthread",
@@ -31,11 +32,12 @@
             "args": [
                 "-std=c++17",
                 "-g",
+                "${workspaceFolder}/calculator.cpp", // Include calculator.cpp for function definitions
                 "${workspaceFolder}/test/test.cpp",
                 "-o",
                 "${workspaceFolder}/test/test_output",
                 "-I",
-                "/usr/include",
+                "${workspaceFolder}",
                 "-L",
                 "/lib/x86_64-linux-gnu",
                 "-lgtest",
