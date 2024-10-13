@@ -1,11 +1,12 @@
-#include <functional>
+// main.cpp
+#include "calculator.h"
 #include <iostream>
 #include <limits>
 #include <sstream>
 #include <stdexcept>
 #include <unordered_map>
 
-// Function declarations
+// Function definitions
 int add(int a, int b) { return a + b; }
 int subtract(int a, int b) { return a - b; }
 int multiply(int a, int b) { return a * b; }
@@ -48,7 +49,7 @@ void processOperation(const std::function<int(int, int)> &operation) {
   std::cout << "Result: " << operation(a, b) << "\n";
 }
 
-int main() {
+int main(int argc, char **argv) { 
   std::unordered_map<int, std::function<int(int, int)>> operations = {
       {1, add}, {2, subtract}, {3, multiply}};
 
