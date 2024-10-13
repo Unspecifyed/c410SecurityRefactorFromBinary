@@ -1,7 +1,7 @@
-// main.cpp
 #include "calculator.h"
 #include <functional>
 #include <iostream>
+#include <optional> // Required for std::optional
 #include <unordered_map>
 
 int main() {
@@ -10,15 +10,25 @@ int main() {
 
   while (true) {
     displayMenu();
-    int choice = getInput("");
 
+    // Use the refactored getInput function which returns std::optional<int>
+    std::optional<int> choice = getInput("");
+
+    // Check if the input is valid
+    if (!choice) {
+      std::cout << "Invalid input. Please try again.\n";
+      continue; // Skip this loop iteration if input is invalid
+    }
+
+    // If valid and the user chooses to exit
     if (choice == 4) {
       std::cout << "Exiting...\n";
       break;
     }
 
-    if (operations.find(choice) != operations.end()) {
-      processOperation(operations[choice]);
+    // Check if the choice is in the available operations
+    if (operations.find(choice.value()) != operations.end()) {
+      processOperation(operations[choice.value()]);
     } else {
       std::cout << "Invalid choice. Try again.\n";
     }

@@ -1,15 +1,18 @@
-// calculator.cpp
 #include "calculator.h"
 #include <iostream>
 #include <limits>
+#include <optional>
 #include <sstream>
 #include <stdexcept>
 
 // Function definitions
 int add(int a, int b) { return a + b; }
+
 int subtract(int a, int b) { return a - b; }
+
 int multiply(int a, int b) { return a * b; }
 
+// Function to display the menu
 void displayMenu() {
   std::cout << "Select an operation:\n";
   std::cout << "1) Add\n";
@@ -19,28 +22,34 @@ void displayMenu() {
   std::cout << "Enter your choice: ";
 }
 
+// Refactored getInput function that returns std::optional<int>
 std::optional<int> getInput(const std::string &prompt) {
   std::string inputStr;
   int input;
 
   std::cout << prompt;
-  std::getline(std::cin, inputStr); // Get entire line as a string
+  std::getline(std::cin, inputStr); // Get the entire line as a string
   std::istringstream inputStream(
       inputStr); // Create a string stream for parsing
 
   // Try to extract an integer from the stream
   if (inputStream >> input) {
-    // If valid integer is extracted, return the input
-    return input;
+    return input; // Return valid input
   } else {
-    // Handle invalid input by returning null equivalent (std::nullopt)
     std::cout << "Invalid input. Returning null." << std::endl;
-    return std::nullopt;
+    return std::nullopt; // Return null equivalent (std::nullopt)
   }
 }
 
+// Process the selected operation by the user
 void processOperation(const std::function<int(int, int)> &operation) {
-  int a = getInput("Enter the first number: ");
-  int b = getInput("Enter the second number: ");
-  std::cout << "Result: " << operation(a, b) << "\n";
+  std::optional<int> a = getInput("Enter the first number: ");
+  std::optional<int> b = getInput("Enter the second number: ");
+
+  // Check if both inputs are valid before proceeding
+  if (a && b) {
+    std::cout << "Result: " << operation(a.value(), b.value()) << "\n";
+  } else {
+    std::cout << "One or both inputs were invalid. Operation aborted.\n";
+  }
 }
