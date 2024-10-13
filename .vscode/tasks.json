@@ -63,6 +63,41 @@
                     "message": 5
                 }
             }
+        },
+        {
+            "label": "build test",
+            "type": "shell",
+            "command": "clang++",
+            "args": [
+                "-std=c++17",
+                "-g",
+                "${workspaceFolder}/test/test.cpp",
+                "-o",
+                "${workspaceFolder}/test/test_output",
+                "-I",
+                "/usr/include",
+                "-L",
+                "/lib/x86_64-linux-gnu",
+                "-lgtest",
+                "-lgtest_main",
+                "-lpthread",
+                "-lssl",
+                "-lcrypto"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "run test",
+            "type": "shell",
+            "command": "${workspaceFolder}/test/test_output",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "problemMatcher": []
         }
     ]
 }
